@@ -26,4 +26,11 @@ public class RegistrationOfDropoutTest {
         Thread.sleep(1000);
     }
 
+    @Test
+    public void shouldCheckIfAreOnTheCorrectPage() throws InterruptedException{
+        RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
+        registrationOfDropoutPage.SignInPageDropout(driver);
+        Thread.sleep(1000);
+    }
+
 }
