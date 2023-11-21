@@ -3,9 +3,12 @@ package org.example;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class RegistrationOfDropoutTest {
     @BeforeEach
@@ -21,16 +24,30 @@ public class RegistrationOfDropoutTest {
 
     private WebDriver driver;
     @Test
-    public void shouldOpenRegisterPageTest() throws InterruptedException{
+    void shouldOpenRegisterPageTest() throws InterruptedException{
         driver.get("http://localhost:3000/");
         Thread.sleep(1000);
     }
 
     @Test
-    public void shouldCheckIfAreOnTheCorrectPage() throws InterruptedException{
+    void shouldCheckIfAreOnTheCorrectPage() throws InterruptedException{
+        driver.get("http://localhost:3000/");
         RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
         registrationOfDropoutPage.SignInPageDropout(driver);
         Thread.sleep(1000);
     }
+
+    @Test
+    @DisplayName("should Fill Out Dropout Page and Register")
+    void shouldFillOutDropoutPageAndRegister() throws InterruptedException{
+        driver.get("http://localhost:3000/");
+        RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
+        Thread.sleep(3000);
+        registrationOfDropoutPage.FillOutDropoutPage(driver);
+        final var modalParagraph = registrationOfDropoutPage.getParam().getText();
+        assertThat(modalParagraph).isEqualTo("Arregou");
+
+    }
+
 
 }
