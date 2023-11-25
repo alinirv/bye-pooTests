@@ -38,7 +38,7 @@ public class RegistrationOfDropoutTest {
     }
 
     @Test
-    @DisplayName("should Fill Out Dropout Page and Register")
+    @DisplayName("Should Fill Out Dropout Page and Register")
     void shouldFillOutDropoutPageAndRegister() throws InterruptedException{
         driver.get("http://localhost:3000/");
         RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
@@ -46,7 +46,17 @@ public class RegistrationOfDropoutTest {
         registrationOfDropoutPage.FillOutDropoutPage(driver);
         final var modalParagraph = registrationOfDropoutPage.getParam().getText();
         assertThat(modalParagraph).isEqualTo("Arregou");
+    }
 
+    @Test
+    @DisplayName("Should Fill Out Dropout Page Without Name")
+    void shouldFillOutDropoutPageWithoutName() throws  InterruptedException{
+        driver.get("http://localhost:3000/");
+        RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
+        Thread.sleep(3000);
+        registrationOfDropoutPage.FillOutDropoutPageWithoutName(driver);
+        final var msg = registrationOfDropoutPage.getMsgError().getText();
+        assertThat(msg).isEqualTo("O nome do estudante deve ser fornecido.");
     }
 
 
