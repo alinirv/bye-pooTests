@@ -61,5 +61,16 @@ public class RegistrationOfDropoutTest {
         assertThat(msg).isEqualTo("O nome do estudante deve ser fornecido.");
     }
 
+    @Test
+    @DisplayName("Should Fill Out Dropout Page With Duplicate Identification")
+    void shouldFillOutDropoutPageWithDuplicateIdentification() throws  InterruptedException{
+        driver.get("http://localhost:3000/");
+        RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
+        Thread.sleep(3000);
+        registrationOfDropoutPage.FillOutDropoutPageWithDuplicateIdentification(driver);
+        final var msg = registrationOfDropoutPage.getMsgError().getText();
+        assertThat(msg).isEqualTo("Já existe um desistente com o id SC3297857");
+    }
+
 
 }
