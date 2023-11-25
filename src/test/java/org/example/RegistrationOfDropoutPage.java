@@ -14,6 +14,10 @@ import java.util.Locale;
 public class RegistrationOfDropoutPage{
     protected WebDriver webDriver;
     Faker faker = new Faker(new Locale("pt-BR"));
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/header/h3")
+    private WebElement titlePage;
+
     @FindBy(id="txtName")
     private WebElement nameBy;
 
@@ -32,8 +36,19 @@ public class RegistrationOfDropoutPage{
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div/div/p")
     private WebElement param;
 
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/p")
+    private WebElement msgError;
+
     public WebElement getParam() {
         return param;
+    }
+
+    public WebElement getMsgError() {
+        return msgError;
+    }
+
+    public WebElement getTitlePage() {
+        return titlePage;
     }
 
     public RegistrationOfDropoutPage(WebDriver driver){
@@ -58,6 +73,18 @@ public class RegistrationOfDropoutPage{
         Select select = new Select(reasonBy);
         List<WebElement> optionList = select.getOptions();
         select.selectByValue("Arreguei");
+
+        buttonRegistration.click();
+    }
+
+    public void FillOutDropoutPageWithoutName(WebDriver driver){
+
+        String identify = "SC" + faker.numerify("#######");
+        identifyBy.sendKeys(identify);
+
+        Select select = new Select(reasonBy);
+        List<WebElement> optionList = select.getOptions();
+        select.selectByValue("Outra");
 
         buttonRegistration.click();
     }
