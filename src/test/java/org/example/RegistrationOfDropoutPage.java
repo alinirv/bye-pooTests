@@ -56,6 +56,14 @@ public class RegistrationOfDropoutPage{
         PageFactory.initElements(driver, this);
     }
 
+    public void SignInPageDropout(WebDriver webDriver){
+        this.webDriver = webDriver;
+        if (!webDriver.getTitle().equals("Bye Poo")) {
+            throw new IllegalStateException("This is not Sign In Page," +
+                    " current page is: " + webDriver.getCurrentUrl());
+        }
+    }
+
     public void FillOutDropoutPage(WebDriver driver){
         String name = String.valueOf(faker.name().fullName());
         String identify = "SC" + faker.numerify("#######");
