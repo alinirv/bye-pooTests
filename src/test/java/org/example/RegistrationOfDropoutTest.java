@@ -33,9 +33,11 @@ public class RegistrationOfDropoutTest {
     void shouldCheckIfAreOnTheCorrectPage() throws InterruptedException{
         driver.get("http://localhost:3000/");
         RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
-        registrationOfDropoutPage.SignInPageDropout(driver);
+        final var titlePage = registrationOfDropoutPage.getTitlePage().getText();
+        assertThat(titlePage).isEqualTo("Registro De Desistentes");
         Thread.sleep(1000);
     }
+
 
     @Test
     @DisplayName("Should Fill Out Dropout Page and Register")
