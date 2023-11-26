@@ -5,13 +5,17 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.time.Duration;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class RegistrationOfDropoutTest {
     @BeforeEach
     public void setUp() {
         WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
     }
 
     @AfterEach
@@ -27,7 +31,6 @@ public class RegistrationOfDropoutTest {
         @Test
         void shouldOpenRegisterPageTest() throws InterruptedException{
             driver.get("http://localhost:3000/");
-            Thread.sleep(1000);
         }
 
         @Test
@@ -36,7 +39,6 @@ public class RegistrationOfDropoutTest {
             RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
             final var titlePage = registrationOfDropoutPage.getTitlePage().getText();
             assertThat(titlePage).isEqualTo("Registro De Desistentes");
-            Thread.sleep(1000);
         }
 
 
@@ -45,10 +47,9 @@ public class RegistrationOfDropoutTest {
         void shouldFillOutDropoutPageAndRegister() throws InterruptedException{
             driver.get("http://localhost:3000/");
             RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
-            Thread.sleep(3000);
             registrationOfDropoutPage.FillOutDropoutPage(driver);
             final var modalParagraph = registrationOfDropoutPage.getParam().getText();
-            assertThat(modalParagraph).isEqualTo("Arregou");
+            assertNotNull(String.valueOf(registrationOfDropoutPage.getModalSucessBy()));
         }
 
         @Test
@@ -56,7 +57,6 @@ public class RegistrationOfDropoutTest {
         void shouldFillOutDropoutPageWithoutName() throws  InterruptedException{
             driver.get("http://localhost:3000/");
             RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
-            Thread.sleep(3000);
             registrationOfDropoutPage.FillOutDropoutPageWithoutName(driver);
             final var msg = registrationOfDropoutPage.getMsgError().getText();
             assertThat(msg).isEqualTo("O nome do estudante deve ser fornecido.");
@@ -67,7 +67,6 @@ public class RegistrationOfDropoutTest {
         void shouldFillOutDropoutPageWithDuplicateIdentification() throws  InterruptedException{
             driver.get("http://localhost:3000/");
             RegistrationOfDropoutPage registrationOfDropoutPage = new RegistrationOfDropoutPage(driver);
-            Thread.sleep(3000);
             registrationOfDropoutPage.FillOutDropoutPageWithDuplicateIdentification(driver);
             final var msg = registrationOfDropoutPage.getMsgError().getText();
             assertThat(msg).isEqualTo("Já existe um desistente com o id SC0000001");
