@@ -1,6 +1,7 @@
 package org.example;
 
 import com.github.javafaker.Faker;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,6 +40,9 @@ public class RegistrationOfDropoutPage{
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/p")
     private WebElement msgError;
 
+    //@FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div")
+    private By modalSucessBy = By.xpath("//*[@id=\"root\"]/div/div/div[2]/div");
+
     public WebElement getParam() {
         return param;
     }
@@ -47,9 +51,9 @@ public class RegistrationOfDropoutPage{
         return msgError;
     }
 
-    public WebElement getTitlePage() {
-        return titlePage;
-    }
+    public WebElement getTitlePage() { return titlePage ;}
+
+    public By getModalSucessBy() { return modalSucessBy; }
 
     public RegistrationOfDropoutPage(WebDriver driver){
         this.webDriver = driver;
@@ -65,7 +69,7 @@ public class RegistrationOfDropoutPage{
         identifyBy.sendKeys(identify);
         Select select = new Select(reasonBy);
         List<WebElement> optionList = select.getOptions();
-        select.selectByValue("Arreguei");
+        select.selectByValue("Não estava muito bem");
 
         buttonRegistration.click();
     }
@@ -96,9 +100,5 @@ public class RegistrationOfDropoutPage{
         buttonRegistration.click();
     }
 
-
-
-    //Fazer funções para testar mais de uma razão
-    //Trocar os .sleep
 
 }
