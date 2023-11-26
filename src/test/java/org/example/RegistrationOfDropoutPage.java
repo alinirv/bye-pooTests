@@ -86,7 +86,7 @@ public class RegistrationOfDropoutPage{
         String name = String.valueOf(faker.name().fullName());
         nameBy.sendKeys(name);
 
-        String identify = "SC3297857";
+        String identify = "SC0000001";
         identifyBy.sendKeys(identify);
 
         Select select = new Select(reasonBy);
@@ -98,9 +98,6 @@ public class RegistrationOfDropoutPage{
 
 
 
-
-
-    //Fazer uma para tentar cadastrar uma pessoa com identificação repetida
     //Fazer funções para testar mais de uma razão
     //Trocar os .sleep
 
