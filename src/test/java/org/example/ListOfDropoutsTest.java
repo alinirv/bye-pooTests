@@ -3,19 +3,25 @@ package org.example;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.Duration;
+import java.util.List;
 
 public class ListOfDropoutsTest {
+
+    private WebDriver driver;
+    private ListOfDropoutsPage listOfDropoutsPage;
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+        listOfDropoutsPage = new ListOfDropoutsPage(driver);
     }
 
     @AfterEach
@@ -23,17 +29,19 @@ public class ListOfDropoutsTest {
         driver.quit();
     }
 
-    private WebDriver driver;
-
     @Nested
-    @DisplayName("testListScreen")
-    public class TestListScreen{
-        @Test
-        void shouldOpenListPageTest(){
-            driver.get("http://localhost:3000/Desistentes");
-        }
-    }
+    @DisplayName("Teste da Página de Lista")
+    public class TestListScreen {
 
+        @Test
+        @DisplayName("Deve abrir a página de lista")
+        void shouldOpenListPageAndVerifyStudents() {
+            listOfDropoutsPage.openListPage();
+
+        }
+
+
+    }
 
 
 
