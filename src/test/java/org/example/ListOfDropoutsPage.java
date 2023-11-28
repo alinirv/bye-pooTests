@@ -18,6 +18,9 @@ public class ListOfDropoutsPage {
     }
 
 
+    public List<WebElement> getStudentRows() {
+        return driver.findElements(By.cssSelector(".StudentRow_StudentRow__JhSrj"));
+    }
 
 
 }
