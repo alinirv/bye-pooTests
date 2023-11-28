@@ -1,6 +1,7 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,6 +42,24 @@ public class ListOfDropoutsTest {
             Assertions.assertFalse(studentRows.isEmpty(), "A lista de alunos está vazia.");
         }
     }
+
+    @Test
+    @DisplayName("Deve verificar se os detalhes do aluno são exibidos corretamente na lista")
+    void shouldVerifyStudentDetailsInList() {
+        listOfDropoutsPage.openListPage();
+        List<WebElement> studentRows = listOfDropoutsPage.getStudentRows();
+        WebElement firstStudent = studentRows.get(1);
+
+        final var softly = new SoftAssertions();
+        softly.assertThat(listOfDropoutsPage.getStudentId(firstStudent)).isEqualTo("SC0000001");
+        softly.assertThat(listOfDropoutsPage.getStudentName(firstStudent)).isEqualTo("Alguem ae");
+        softly.assertThat(listOfDropoutsPage.getStudentReason(firstStudent)).isEqualTo("O Prof. Lucas não vai pro céu");
+        softly.assertAll();
+
+    }
+
+
+
 
 
 
