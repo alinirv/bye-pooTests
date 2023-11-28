@@ -25,6 +25,15 @@ public class ListOfDropoutsTest {
 
     private WebDriver driver;
 
+    @Nested
+    @DisplayName("testListScreen")
+    public class TestListScreen{
+        @Test
+        void shouldOpenListPageTest(){
+            driver.get("http://localhost:3000/Desistentes");
+        }
+    }
+
 
 
 
