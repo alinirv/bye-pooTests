@@ -44,4 +44,15 @@ public class EditDropoutsTest {
         final var errorMessage = editDropoutsPage.getErrorMessageBox().getText();
         assertThat(errorMessage).isEqualTo("O nome do estudante deve ser fornecido.");
     }
+    @Test
+    @DisplayName("Should Fail to Edit Dropout Information Without Reason")
+    void shouldFailToEditDropoutInformationWithoutReason() throws InterruptedException {
+        driver.get("http://localhost:3000/");
+
+        EditDropoutsPage editDropoutsPage = new EditDropoutsPage(driver);
+        editDropoutsPage.editarInformacoesDesistencias(driver, "NovoNome", "");
+
+        final var errorMessage = editDropoutsPage.getErrorMessageBox().getText();
+        assertThat(errorMessage).isEqualTo("O motivo da desistência deve ser fornecido.");
+    }
 }
