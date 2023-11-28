@@ -1,9 +1,4 @@
 package org.example;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,6 +21,9 @@ public class EditDropoutsPage {
     @FindBy(xpath = "//div[@id='editConfirmation']/p")
     private WebElement editConfirmationMessage;
 
+    @FindBy(xpath = "//div[@id='errorMessageBox']/p")
+    private WebElement errorMessageBox;
+
     public EditDropoutsPage(WebDriver driver) {
         this.webDriver = driver;
         PageFactory.initElements(driver, this);
@@ -40,10 +38,16 @@ public class EditDropoutsPage {
 
         saveEditButton.click();
     }
-
     public WebElement getEditConfirmationMessage() {
+
         return editConfirmationMessage;
     }
+    public WebElement getErrorMessageBox() {
+        return errorMessageBox;
+    }
 }
+
+
+
 
 

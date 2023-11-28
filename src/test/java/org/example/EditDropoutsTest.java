@@ -33,6 +33,15 @@ public class EditDropoutsTest {
         final var confirmationMessage = editDropoutsPage.getEditConfirmationMessage().getText();
         assertThat(confirmationMessage).isEqualTo("Edição bem-sucedida");
     }
+    @Test
+    @DisplayName("Should Fail to Edit Dropout Information Without Name")
+    void shouldFailToEditDropoutInformationWithoutName() throws InterruptedException {
+        driver.get("http://localhost:3000/");
 
+        EditDropoutsPage editDropoutsPage = new EditDropoutsPage(driver);
+        editDropoutsPage.editarInformacoesDesistencias(driver, "", "NovoMotivo");
 
+        final var errorMessage = editDropoutsPage.getErrorMessageBox().getText();
+        assertThat(errorMessage).isEqualTo("O nome do estudante deve ser fornecido.");
+    }
 }
