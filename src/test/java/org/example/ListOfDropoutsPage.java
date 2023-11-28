@@ -21,6 +21,21 @@ public class ListOfDropoutsPage {
     public List<WebElement> getStudentRows() {
         return driver.findElements(By.cssSelector(".StudentRow_StudentRow__JhSrj"));
     }
+    public String getStudentId(WebElement studentRow) {
+        return studentRow.findElement(By.cssSelector("td:nth-child(1)")).getText();
+    }
+
+
+    public String getStudentName(WebElement studentRow) {
+        return studentRow.findElement(By.cssSelector("td:nth-child(2)")).getText();
+    }
+
+
+    public String getStudentReason(WebElement studentRow) {
+        return studentRow.findElement(By.cssSelector("td:nth-child(3)")).getText();
+    }
+
+
 
 
 }
