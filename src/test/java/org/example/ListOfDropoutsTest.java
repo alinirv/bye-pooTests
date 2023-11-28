@@ -34,13 +34,12 @@ public class ListOfDropoutsTest {
     public class TestListScreen {
 
         @Test
-        @DisplayName("Deve abrir a página de lista")
+        @DisplayName("Deve abrir a página de lista  e verificar se há alunos cadastrados")
         void shouldOpenListPageAndVerifyStudents() {
             listOfDropoutsPage.openListPage();
-
+            List<WebElement> studentRows = listOfDropoutsPage.getStudentRows();
+            Assertions.assertFalse(studentRows.isEmpty(), "A lista de alunos está vazia.");
         }
-
-
     }
 
 
