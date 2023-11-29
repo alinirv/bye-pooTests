@@ -54,6 +54,7 @@ public class EditDropoutsTest {
         boolean isNameModify = editPage.isStudentNameUpdatedById(idStudent, nameStudent) ;
         assertThat(isNameModify).isFalse();
     }
+
     @Test
     @DisplayName("Tenta alterar um ID inexistente e verifica a mensagem de erro")
     void tryToUpdateNonExistentId() {
@@ -62,8 +63,8 @@ public class EditDropoutsTest {
         Assertions.assertFalse(rows.isEmpty(), "Lista vazia");
         WebElement rowSelect = rows.get(2);
         editPage.clikEditStudent(rowSelect);
-
-        boolean isErrorMessageDisplayed = editPage.isErrorMessageDisplayedForNonExistentId();
+        editPage.editId();
+        boolean isErrorMessageDisplayed = editPage.isErrorMessageDisplayed();
         assertThat(isErrorMessageDisplayed).isTrue();
-    }
+}
 }
