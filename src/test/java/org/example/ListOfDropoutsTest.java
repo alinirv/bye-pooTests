@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.Duration;
 import java.util.List;
@@ -58,9 +59,23 @@ public class ListOfDropoutsTest {
 
     }
 
+    @Test
+    @DisplayName("Deleta um aluno e verifica se ele foi realmente deletado")
+    public void deleteStudent() {
+        listOfDropoutsPage.openListPage();
 
+        List<WebElement> studentRows = listOfDropoutsPage.getStudentRows();
 
+        Assertions.assertFalse(studentRows.isEmpty(), "A lista de alunos está vazia.");
 
+        WebElement firstStudent = studentRows.get(2);
 
+        String studentIdToDelete = listOfDropoutsPage.getStudentId(firstStudent);
 
+        listOfDropoutsPage.deleteStudent(firstStudent);
+
+        boolean isStudentDeleted = listOfDropoutsPage.isStudentDeletedById(studentIdToDelete);
+
+        assertThat(isStudentDeleted).isTrue();
+    }
 }
