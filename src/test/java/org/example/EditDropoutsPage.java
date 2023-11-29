@@ -40,7 +40,7 @@ public class EditDropoutsPage {
 
     public void editName() {
         String name = String.valueOf(faker.name().fullName());
-        nameBy.clear;
+        nameBy.clear();
         nameBy.sendKeys(name);
         buttonRegistration.click();
     }
@@ -82,7 +82,19 @@ public class EditDropoutsPage {
 
         // Se a linha do aluno com o ID for encontrada, verifica se o nome foi alterado corretamente
         return studentRow != null && studentRow.findElement(By.cssSelector("td:nth-child(2)")).getText().equals(expectedName);
-}
+    }
+    public boolean isErrorMessageDisplayedForNonExistentId() {
+        String identify = "SC" + faker.numerify("#######");
+        idBy.sendKeys(identify);
+        // Substitua o seletor CSS pelo seletor real que corresponde à mensagem de erro
+        By errorMessageSelector = By.cssSelector(".Notification_Notification__9HZmX p");
+
+        List<WebElement> errorMessages = webDriver.findElements(errorMessageSelector);
+
+        // Verifica se pelo menos uma mensagem de erro contém o texto esperado
+        return errorMessages.stream()
+                .anyMatch(errorMessage -> errorMessage.getText().contains("Não existe um desistente com id " + identify));
+    }
 }
 
 
