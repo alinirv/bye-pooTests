@@ -40,6 +40,7 @@ public class EditDropoutsPage {
 
     public void editName() {
         String name = String.valueOf(faker.name().fullName());
+        nameBy.clear;
         nameBy.sendKeys(name);
         buttonRegistration.click();
     }
