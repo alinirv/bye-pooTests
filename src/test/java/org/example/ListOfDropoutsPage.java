@@ -39,6 +39,11 @@ public class ListOfDropoutsPage {
         studentRow.findElement(By.cssSelector("svg:nth-child(2)")).click();
     }
 
+    public boolean isStudentDeletedById(String studentId) {
+        List<WebElement> updatedStudentRows = getStudentRows();
+        return updatedStudentRows.stream()
+                .noneMatch(row -> row.findElement(By.cssSelector("td:nth-child(1)")).getText().equals(studentId));
 
+    }
 
 }
