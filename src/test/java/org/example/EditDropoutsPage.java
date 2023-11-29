@@ -95,6 +95,19 @@ public class EditDropoutsPage {
         return errorMessages.stream()
                 .anyMatch(errorMessage -> errorMessage.getText().contains("Não existe um desistente com id " + identify));
     }
+    public void editId() {
+        String identify = "SC" + faker.numerify("#######");
+        idBy.clear();
+        idBy.sendKeys(identify);
+        buttonRegistration.click();
+    }
+    public boolean isErrorMessageDisplayed() {
+        // Substitua o seletor CSS pelo seletor real que corresponde à mensagem de erro
+        By errorMessageSelector = By.cssSelector(".Notification_Notification__9HZmX p");
+
+        // Verifica se há pelo menos uma mensagem de erro na página
+        return webDriver.findElements(errorMessageSelector).size()>0;
+}
 }
 
 
