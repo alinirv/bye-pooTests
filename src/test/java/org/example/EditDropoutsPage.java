@@ -38,16 +38,9 @@ public class EditDropoutsPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void editDropoutInformation(WebDriver driver) {
+    public void editName() {
         String name = String.valueOf(faker.name().fullName());
-        String identify = "SC0000003";
         nameBy.sendKeys(name);
-        idBy.sendKeys(identify);
-
-        Select select = new Select(reasonBy);
-        List<WebElement> optionList = select.getOptions();
-        select.selectByValue("Não estava muito bem");
-
         buttonRegistration.click();
     }
     public WebElement getEditConfirmationMessage() {
@@ -73,6 +66,22 @@ public class EditDropoutsPage {
     public List<WebElement> getStudentRows() {
         return webDriver.findElements(By.cssSelector(".StudentRow_StudentRow__JhSrj"));
     }
+    public String getStudentName(WebElement studentRow) {
+        return studentRow.findElement(By.cssSelector("td:nth-child(2)")).getText();
+    }
+    // Método para verificar se o nome de um aluno foi alterado com base no ID
+    public boolean isStudentNameUpdatedById(String studentId, String expectedName) {
+        List<WebElement> updatedStudentRows = getStudentRows();
+
+        // Procura a linha do aluno com o ID especificado
+        WebElement studentRow = updatedStudentRows.stream()
+                .filter(row -> row.findElement(By.cssSelector("td:nth-child(1)")).getText().equals(studentId))
+                .findFirst()
+                .orElse(null);
+
+        // Se a linha do aluno com o ID for encontrada, verifica se o nome foi alterado corretamente
+        return studentRow != null && studentRow.findElement(By.cssSelector("td:nth-child(2)")).getText().equals(expectedName);
+}
 }
 
 
