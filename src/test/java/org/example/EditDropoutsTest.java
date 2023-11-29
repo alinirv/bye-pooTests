@@ -39,59 +39,19 @@ public class EditDropoutsTest {
         editPage.clikEditStudent(rows.get(2));
         Assertions.assertFalse(editPage.getId().getText().isEmpty(), "Não existe aluno");
     }
+
     @Test
-    @DisplayName("Should Edit Dropout Information")
-    void Shouldeditdropoutinformation() throws InterruptedException {
-        driver.get("http://localhost:3000/");
-
-        EditDropoutsPage editDropoutsPage = new EditDropoutsPage(driver);
-        editDropoutsPage.editDropoutInformation(driver);
-
-        final var confirmationMessage = editDropoutsPage.getEditConfirmationMessage().getText();
-        assertThat(confirmationMessage).isEqualTo("Edição bem-sucedida");
+    @DisplayName("Should Fail to Edit Dropout Information Change Name")
+    void shouldFailToEditDropoutInformationChangeName() throws InterruptedException {
+        driver.get("http://localhost:3000/Desistentes");
+        List<WebElement> rows = editPage.getStudentRows();
+        Assertions.assertTrue(rows.isEmpty(), "Lista vazia");
+        WebElement rowSelect = rows.get(2);
+        String nameStudent = String.valueOf(editPage.getName());
+        String idStudent = String.valueOf(editPage.getId());
+        editPage.clikEditStudent(rowSelect);
+        editPage.editName();
+        boolean isNameModify = editPage.isStudentNameUpdatedById(idStudent, nameStudent) ;
+        assertThat(isNameModify).isTrue();
     }
-    /*@Test
-    @DisplayName("Should Fail to Edit Dropout Information Without Name")
-    void shouldFailToEditDropoutInformationWithoutName() throws InterruptedException {
-        driver.get("http://localhost:3000/");
-
-        EditDropoutsPage editDropoutsPage = new EditDropoutsPage(driver);
-        editDropoutsPage.editDropoutInformation(driver, "", "newId","newReason");
-
-        final var errorMessage = editDropoutsPage.getErrorMessageBox().getText();
-        assertThat(errorMessage).isEqualTo("O nome do estudante deve ser fornecido.");
-    }
-    @Test
-    @DisplayName("Should Fail to Edit Dropout Information Without Id")
-    void shouldFailToEditDropoutInformationWithoutId() throws InterruptedException {
-        driver.get("http://localhost:3000/");
-
-        EditDropoutsPage editDropoutsPage = new EditDropoutsPage(driver);
-        editDropoutsPage.editDropoutInformation(driver, "newName", "","newReason");
-
-        final var errorMessage = editDropoutsPage.getErrorMessageBox().getText();
-        assertThat(errorMessage).isEqualTo("O Id do estudante deve ser fornecido.");
-    }
-    @Test
-    @DisplayName("Should Fail to Edit Dropout Information Without Reason")
-    void shouldFailToEditDropoutInformationWithoutReason() throws InterruptedException {
-        driver.get("http://localhost:3000/");
-
-        EditDropoutsPage editDropoutsPage = new EditDropoutsPage(driver);
-        editDropoutsPage.editDropoutInformation(driver, "NovoNome", "newId","");
-
-        final var errorMessage = editDropoutsPage.getErrorMessageBox().getText();
-        assertThat(errorMessage).isEqualTo("O motivo da desistência deve ser fornecido.");
-    }
-    @Test
-    @DisplayName("Should Fail to Edit Dropout Information With Duplicate Identification")
-    void shouldFailToEditDropoutInformationWithDuplicateIdentification() throws InterruptedException {
-        driver.get("http://localhost:3000/");
-
-        EditDropoutsPage editDropoutsPage = new EditDropoutsPage(driver);
-        editDropoutsPage.editDropoutInformation(driver, "NovoNome", "NovoMotivo", "SC0000001");
-
-        final var errorMessage = editDropoutsPage.getErrorMessageBox().getText();
-        assertThat(errorMessage).isEqualTo("Já existe um desistente com o id SC0000001");
-    }*/
 }
