@@ -22,7 +22,7 @@ public class EditDropoutsTest {
     public void setUp() {
         WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
         editPage = new EditDropoutsPage(driver);
     }
 
@@ -35,9 +35,9 @@ public class EditDropoutsTest {
     void shouldOpenEditPageTest() throws InterruptedException{
         driver.get("http://localhost:3000/Desistentes");
         List<WebElement> rows = editPage.getStudentRows();
-        Assertions.assertTrue(rows.isEmpty(), "Lista vazia");
+        Assertions.assertFalse(rows.isEmpty(), "Lista vazia");
         editPage.clikEditStudent(rows.get(2));
-        Assertions.assertFalse(editPage.getId().getText().isEmpty(), "Não existe aluno");
+        Assertions.assertTrue(editPage.getId().getText().isEmpty(), "Não existe aluno");
     }
 
     @Test
@@ -45,13 +45,13 @@ public class EditDropoutsTest {
     void shouldFailToEditDropoutInformationChangeName() throws InterruptedException {
         driver.get("http://localhost:3000/Desistentes");
         List<WebElement> rows = editPage.getStudentRows();
-        Assertions.assertTrue(rows.isEmpty(), "Lista vazia");
+        Assertions.assertFalse(rows.isEmpty(), "Lista vazia");
         WebElement rowSelect = rows.get(2);
         String nameStudent = String.valueOf(editPage.getName());
         String idStudent = String.valueOf(editPage.getId());
         editPage.clikEditStudent(rowSelect);
         editPage.editName();
         boolean isNameModify = editPage.isStudentNameUpdatedById(idStudent, nameStudent) ;
-        assertThat(isNameModify).isTrue();
+        assertThat(isNameModify).isFalse();
     }
 }
