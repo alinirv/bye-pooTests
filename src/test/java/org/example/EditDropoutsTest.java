@@ -35,7 +35,7 @@ public class EditDropoutsTest {
     void shouldOpenEditPageTest() throws InterruptedException{
         driver.get("http://localhost:3000/Desistentes");
         List<WebElement> rows = editPage.getStudentRows();
-        Assertions.assertFalse(rows.isEmpty(), "Lista vazia");
+        Assertions.assertTrue(rows.isEmpty(), "Lista vazia");
         editPage.clikEditStudent(rows.get(2));
         Assertions.assertFalse(editPage.getId().getText().isEmpty(), "Não existe aluno");
     }
