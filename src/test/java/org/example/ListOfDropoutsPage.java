@@ -35,6 +35,9 @@ public class ListOfDropoutsPage {
         return studentRow.findElement(By.cssSelector("td:nth-child(3)")).getText();
     }
 
+    public void deleteStudent(WebElement studentRow){
+        studentRow.findElement(By.cssSelector("svg:nth-child(2)")).click();
+    }
 
 
 
